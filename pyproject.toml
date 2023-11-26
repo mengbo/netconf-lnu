@@ -8,7 +8,6 @@ authors = [
 dependencies = [
     "ncclient>=0.6.15",
     "xmltodict>=0.13.0",
-    "pyang>=2.5.3",
 ]
 requires-python = ">=3.11"
 readme = "README.md"
@@ -22,6 +21,10 @@ netconf-lnu = "python3 src/netconf_lnu/main.py"
 source = "call"
 getter = "version:get_version"
 
+[tool.pdm.dev-dependencies]
+dev = [
+    "pyang>=2.6.0",
+]
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
