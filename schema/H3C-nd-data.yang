@@ -1,0 +1,261 @@
+module H3C-nd-data {
+    namespace "http://www.h3c.com/netconf/data:1.0-ND";
+    prefix "nd-data";
+    import comware-basetype {
+         prefix "base";
+    }
+    import comware-extension {
+         prefix "ext";
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+    contact "Website: http://www.h3c.com";
+    description "The module entities for nd data.";
+    revision 2020-01-11 {
+        description "Initial revision.";
+    }
+    container ND {
+        config false;
+        container NDTable {
+            list NDEntry {
+                key "IfIndex Ipv6Address";
+                leaf IfIndex {
+                    type base:Basetype_NameAndIndexUnion;
+                }
+                leaf Ipv6Address {
+                    type base:Basetype_Ipv6Address;
+                }
+                leaf MacAddress {
+                    type base:Basetype_MacAddress;
+                }
+                leaf VLANID {
+                    type base:Basetype_UnsignedInteger32 {
+                        range "1..4094";
+                    }
+                }
+                leaf PortIndex {
+                    type base:Basetype_NameAndIndexUnion;
+                }
+                leaf VrfIndex {
+                    type base:Basetype_NameAndIndexUnion;
+                }
+                leaf Type {
+                    type enumeration {
+                        enum 1;
+                        enum 2;
+                        enum 3;
+                        enum 4;
+                        enum 5;
+                    }
+                }
+                leaf State {
+                    type enumeration {
+                        enum 1;
+                        enum 2;
+                        enum 3;
+                        enum 4;
+                        enum 5;
+                    }
+                }
+                leaf AgeTime {
+                    type base:Basetype_UnsignedInteger32;
+                }
+            }
+        }
+        container NDLearnLimit {
+            list LearnLimit {
+                key "IfIndex";
+                leaf IfIndex {
+                    type base:Basetype_NameAndIndexUnion;
+                }
+                leaf LearnMaxNum {
+                    type base:Basetype_UnsignedInteger32 {
+                        range "1..max";
+                    }
+                }
+            }
+        }
+        container NDInterface {
+            list Interface {
+                key "IfIndex";
+                leaf IfIndex {
+                    type base:Basetype_NameAndIndexUnion;
+                }
+                leaf DADAttempts {
+                    type base:Basetype_UnsignedInteger32 {
+                        range "0..600";
+                    }
+                }
+                leaf ModeUNI {
+                    type base:Basetype_Boolean;
+                }
+            }
+        }
+        container NDConfig {
+            leaf StaleAging {
+                type base:Basetype_UnsignedInteger32 {
+                    range "1..1440";
+                }
+            }
+            leaf LinkLocalMinimize {
+                type base:Basetype_Boolean;
+            }
+            leaf HopLimit {
+                type base:Basetype_UnsignedInteger32 {
+                    range "1..255";
+                }
+            }
+        }
+        container NDRA {
+            list RA {
+                key "IfIndex";
+                leaf IfIndex {
+                    type base:Basetype_NameAndIndexUnion;
+                }
+                leaf RAHalt {
+                    type base:Basetype_Boolean;
+                }
+                leaf MaxInterval {
+                    type base:Basetype_UnsignedInteger32 {
+                        range "4..1800";
+                    }
+                }
+                leaf MinInterval {
+                    type base:Basetype_UnsignedInteger32 {
+                        range "3..1350";
+                    }
+                }
+                leaf NoAdvLinkMTU {
+                    type base:Basetype_Boolean;
+                }
+                leaf HopLimitUnspecified {
+                    type base:Basetype_Boolean;
+                }
+                leaf ManagedAddressFlag {
+                    type base:Basetype_Boolean;
+                }
+                leaf OtherFlag {
+                    type base:Basetype_Boolean;
+                }
+                leaf RouterLifetime {
+                    type base:Basetype_UnsignedInteger32 {
+                        range "0..9000";
+                    }
+                }
+                leaf NSRetransTimer {
+                    type base:Basetype_UnsignedInteger32 {
+                        range "1000..4294967295";
+                    }
+                }
+                leaf RouterPreference {
+                    type enumeration {
+                        enum 1;
+                        enum 2;
+                        enum 3;
+                    }
+                }
+                leaf NudReachableTime {
+                    type base:Basetype_UnsignedInteger32 {
+                        range "1..3600000";
+                    }
+                }
+            }
+        }
+        container NDRAPrefix {
+            list RAPrefix {
+                key "IfIndex";
+                leaf IfIndex {
+                    type base:Basetype_NameAndIndexUnion;
+                }
+                list Ipv6Prefix {
+                    key "Ipv6Address Ipv6PrefixLength";
+                    leaf Ipv6Address {
+                        type base:Basetype_Ipv6Address;
+                    }
+                    leaf Ipv6PrefixLength {
+                        type base:Basetype_UnsignedInteger32 {
+                            range "1..128";
+                        }
+                    }
+                }
+                leaf ValidLifetime {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf PreferredLifetime {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf NoAutoConfig {
+                    type base:Basetype_Boolean;
+                }
+                leaf OffLink {
+                    type base:Basetype_Boolean;
+                }
+                leaf NoAdvertise {
+                    type base:Basetype_Boolean;
+                }
+            }
+        }
+        container NDProxy {
+            list Proxy {
+                key "IfIndex";
+                leaf IfIndex {
+                    type base:Basetype_NameAndIndexUnion;
+                }
+                leaf ProxyEnable {
+                    type base:Basetype_Boolean;
+                }
+                leaf LocalProxyEnable {
+                    type base:Basetype_Boolean;
+                }
+            }
+        }
+        container NDSpecification {
+            leaf LearnMaxNumLimit {
+                type base:Basetype_UnsignedInteger32;
+            }
+            leaf SupportModeUNI {
+                type base:Basetype_Boolean;
+            }
+        }
+        container NDVsiConfig {
+            description "VSI config of ND
+                This table supports creating rows.";
+            list VsiConfig {
+                description "Row Name";
+                key "VsiIfIndex Ipv6Address";
+                leaf VsiIfIndex {
+                    type base:Basetype_NameAndIndexUnion;
+                    description "Vsi-interface Index";
+                }
+                leaf Ipv6Address {
+                    type base:Basetype_Ipv6Address;
+                    description "Ipv6 Address";
+                }
+                leaf MacAddress {
+                    type base:Basetype_MacAddress;
+                    description "Mac Address";
+                }
+                leaf PortIndex {
+                    type base:Basetype_NameAndIndexUnion;
+                    description "Port Index";
+                }
+                leaf SrvID {
+                    type base:Basetype_UnsignedInteger32 {
+                        range "1..4096";
+                    }
+                }
+                leaf VsiName {
+                    type base:Basetype_String {
+                        length "1..31";
+                    }
+                    description "Index, VSI name";
+                }
+                leaf VrfIndex {
+                    type base:Basetype_NameAndIndexUnion;
+                    description "Vrf Index";
+                }
+            }
+        }
+    }
+}
+

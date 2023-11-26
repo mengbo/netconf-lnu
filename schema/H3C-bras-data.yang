@@ -1,0 +1,1010 @@
+module H3C-bras-data {
+    namespace "http://www.h3c.com/netconf/data:1.0-BRAS";
+    prefix "bras-data";
+    import comware-basetype {
+         prefix "base";
+    }
+    import comware-extension {
+         prefix "ext";
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+    contact "Website: http://www.h3c.com";
+    description "The module entities for bras data.";
+    revision 2020-01-11 {
+        description "Initial revision.";
+    }
+    container BRAS {
+        config false;
+        container BrasInterfaces {
+            list BrasInterface {
+                key "IfIndex";
+                leaf IfIndex {
+                    type base:Basetype_NameAndIndexUnion;
+                }
+                container IPoEDhcpUserNameFormats {
+                    list IPoEDhcpUserNameFormat {
+                        key "SeqId";
+                        leaf SeqId {
+                            type base:Basetype_UnsignedInteger32;
+                        }
+                        leaf ContextType {
+                            type enumeration {
+                                enum 1;
+                                enum 2;
+                                enum 3;
+                                enum 4;
+                                enum 5;
+                                enum 6;
+                                enum 7;
+                                enum 8;
+                                enum 9;
+                                enum 10;
+                                enum 11;
+                                enum 12;
+                                enum 13;
+                                enum 14;
+                                enum 15;
+                                enum 16;
+                                enum 17;
+                                enum 18;
+                            }
+                        }
+                        leaf Separator {
+                            type base:Basetype_String {
+                                length "1";
+                            }
+                        }
+                        leaf MacSeparator {
+                            type base:Basetype_String {
+                                length "1";
+                            }
+                        }
+                        leaf SpecifiedString {
+                            type base:Basetype_String {
+                                length "1..128";
+                            }
+                        }
+                        leaf ExtensibleBit {
+                            type base:Basetype_UnsignedInteger32 {
+                                range "0..255";
+                            }
+                        }
+                    }
+                }
+                container IPoEAuthFailurePolicy {
+                    leaf ChastenAuthFailedTimes {
+                        type base:Basetype_UnsignedInteger32 {
+                            range "1..10000";
+                        }
+                    }
+                    leaf ChastenPeriod {
+                        type base:Basetype_UnsignedInteger32 {
+                            range "1..3600";
+                        }
+                    }
+                    leaf QuietTime {
+                        type base:Basetype_UnsignedInteger32 {
+                            range "10..3600";
+                        }
+                    }
+                }
+                container IfAccessLimit {
+                    leaf IfLimitNum {
+                        type base:Basetype_UnsignedInteger32;
+                    }
+                }
+                container IfVlanAccessLimits {
+                    list IfVlanAccessLimit {
+                        key "StartVlanId EndVlanId";
+                        leaf StartVlanId {
+                            type base:Basetype_UnsignedInteger32 {
+                                range "1..4094";
+                            }
+                        }
+                        leaf EndVlanId {
+                            type union {
+                                type base:Basetype_EmptyString;
+                                type base:Basetype_UnsignedInteger32 {
+                                    range "1..4094";
+                                }
+                            }
+                        }
+                        leaf VlanLimitNum {
+                            type base:Basetype_UnsignedInteger32;
+                        }
+                    }
+                }
+                container IfQinqAccessLimits {
+                    list IfQinqAccessLimit {
+                        key "QinqStartVlanId QinqEndVlanId QinqVlanId";
+                        leaf QinqStartVlanId {
+                            type base:Basetype_UnsignedInteger32 {
+                                range "1..4094";
+                            }
+                        }
+                        leaf QinqEndVlanId {
+                            type union {
+                                type base:Basetype_EmptyString;
+                                type base:Basetype_UnsignedInteger32 {
+                                    range "1..4094";
+                                }
+                            }
+                        }
+                        leaf QinqVlanId {
+                            type base:Basetype_UnsignedInteger32 {
+                                range "1..4094";
+                            }
+                        }
+                        leaf QinqLimitNum {
+                            type base:Basetype_UnsignedInteger32;
+                        }
+                    }
+                }
+                container IPoEUserDetects {
+                    list IPoEUserDetect {
+                        key "IPType";
+                        leaf IPType {
+                            type enumeration {
+                                enum 1;
+                                enum 2;
+                            }
+                        }
+                        leaf DetectType {
+                            type enumeration {
+                                enum 1;
+                                enum 2;
+                                enum 3;
+                                enum 4;
+                            }
+                        }
+                        leaf RetryNum {
+                            type base:Basetype_UnsignedInteger32 {
+                                range "2..255";
+                            }
+                        }
+                        leaf Interval {
+                            type base:Basetype_UnsignedInteger32 {
+                                range "20..1200";
+                            }
+                        }
+                        leaf NoDataCheck {
+                            type enumeration {
+                                enum 1;
+                                enum 2;
+                            }
+                        }
+                    }
+                }
+                container IPoEUserName {
+                    leaf UserNameContext {
+                        type enumeration {
+                            enum 1;
+                            enum 2;
+                            enum 3;
+                        }
+                    }
+                    leaf MacSeparator {
+                        type base:Basetype_String {
+                            length "1";
+                        }
+                    }
+                    leaf MacIsLowcase {
+                        type enumeration {
+                            enum 1;
+                            enum 2;
+                            enum 3;
+                        }
+                    }
+                    leaf UserNameString {
+                        type base:Basetype_String {
+                            length "1..128";
+                        }
+                    }
+                }
+            }
+        }
+        container AccessLog {
+            leaf AbnormalLogout {
+                type enumeration {
+                    enum 1;
+                    enum 2;
+                }
+            }
+            leaf FailedLogin {
+                type enumeration {
+                    enum 1;
+                    enum 2;
+                }
+            }
+            leaf NormalLogout {
+                type enumeration {
+                    enum 1;
+                    enum 2;
+                }
+            }
+            leaf SuccessfulLogin {
+                type enumeration {
+                    enum 1;
+                    enum 2;
+                }
+            }
+        }
+        container AccessUserInfo {
+            list UserInfo {
+                key "UserID UPID";
+                leaf UserID {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf UPID {
+                    type enumeration {
+                        enum 0;
+                    }
+                }
+                leaf ChassisId {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf SlotId {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf UserName {
+                    type base:Basetype_String {
+                        length "1..253";
+                    }
+                }
+                leaf AuthType {
+                    type enumeration {
+                        enum 1;
+                        enum 2;
+                        enum 3;
+                        enum 4;
+                        enum 5;
+                        enum 6;
+                        enum 7;
+                        enum 8;
+                        enum 9;
+                        enum 10;
+                        enum 11;
+                    }
+                }
+                leaf Interface {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf IfName {
+                    type base:Basetype_String {
+                        length "1..47";
+                    }
+                }
+                leaf MacAddr {
+                    type base:Basetype_MacAddress;
+                }
+                leaf IpAddr {
+                    type base:Basetype_Ipv4Address;
+                }
+                leaf IPv6Addr {
+                    type base:Basetype_Ipv6Address;
+                }
+                leaf VPNInstanceName {
+                    type base:Basetype_String {
+                        length "1..31";
+                    }
+                }
+                leaf ServiceVLAN {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf CustomerVLAN {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf IPv4Pool {
+                    type base:Basetype_String {
+                        length "1..63";
+                    }
+                }
+                leaf IPv6Pool {
+                    type base:Basetype_String {
+                        length "1..63";
+                    }
+                }
+                leaf DomainName {
+                    type base:Basetype_String {
+                        length "1..255";
+                    }
+                }
+                leaf IPv4PoolGroup {
+                    type base:Basetype_String {
+                        length "1..63";
+                    }
+                }
+                leaf IPv6PoolGroup {
+                    type base:Basetype_String {
+                        length "1..63";
+                    }
+                }
+                leaf IPType {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                        enum 2;
+                    }
+                }
+                leaf IPv6Protocol {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                    }
+                }
+                leaf LACIPAddr {
+                    type base:Basetype_Ipv4Address;
+                }
+                leaf LNSIPAddr {
+                    type base:Basetype_Ipv4Address;
+                }
+                leaf RemoteName {
+                    type base:Basetype_String {
+                        length "1..31";
+                    }
+                }
+                leaf StartTime {
+                    type base:Basetype_DateTime;
+                }
+                leaf EndTime {
+                    type base:Basetype_DateTime;
+                }
+                leaf UserAddressType {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                        enum 2;
+                        enum 3;
+                        enum 4;
+                        enum 5;
+                        enum 6;
+                    }
+                }
+                leaf UserGroup {
+                    type base:Basetype_String {
+                        length "1..32";
+                    }
+                }
+                leaf UserType {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                        enum 2;
+                        enum 3;
+                        enum 4;
+                    }
+                }
+                leaf StartVxlanID {
+                    type base:Basetype_UnsignedInteger32 {
+                        range "0..16777215";
+                    }
+                }
+                leaf EndVxlanID {
+                    type base:Basetype_UnsignedInteger32 {
+                        range "0..16777215";
+                    }
+                }
+                leaf Time {
+                    type base:Basetype_UnsignedInteger32 {
+                        range "1..7200";
+                    }
+                }
+                leaf PublicIPAddr {
+                    type base:Basetype_Ipv4Address;
+                }
+                leaf Description {
+                    type base:Basetype_String {
+                        length "1..31";
+                    }
+                }
+                leaf PPPIndex {
+                    type base:Basetype_UnsignedInteger64;
+                }
+                leaf AuthenDomain {
+                    type base:Basetype_String {
+                        length "1..255";
+                    }
+                }
+                leaf AuthorDomain {
+                    type base:Basetype_String {
+                        length "1..255";
+                    }
+                }
+                leaf VxlanID {
+                    type base:Basetype_UnsignedInteger32 {
+                        range "0..16777215";
+                    }
+                }
+                leaf IPv4PDNSServer {
+                    type base:Basetype_Ipv4Address;
+                }
+                leaf IPv4SDNSServer {
+                    type base:Basetype_Ipv4Address;
+                }
+                leaf IPv6PDNSServer {
+                    type base:Basetype_Ipv6Address;
+                }
+                leaf IPv6SDNSServer {
+                    type base:Basetype_Ipv6Address;
+                }
+                leaf IPv6NDPrefix {
+                    type base:Basetype_Ipv6Address;
+                }
+                leaf IPv6NDPrefixLen {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf IPv6PDPrefix {
+                    type base:Basetype_Ipv6Address;
+                }
+                leaf IPv6PDPrefixLen {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf IPv6PrefixPool {
+                    type base:Basetype_String {
+                        length "1..63";
+                    }
+                }
+                leaf AuthorIPv6Pool {
+                    type base:Basetype_String {
+                        length "1..63";
+                    }
+                }
+                leaf DHCPv4LeaseTime {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf DHCPv4RemainLease {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf DHCPv6LeaseTime {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf DHCPv6RemainLease {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf AccessType {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                        enum 2;
+                        enum 3;
+                        enum 4;
+                        enum 5;
+                        enum 6;
+                        enum 7;
+                        enum 8;
+                        enum 9;
+                        enum 10;
+                        enum 11;
+                        enum 12;
+                        enum 13;
+                        enum 14;
+                        enum 15;
+                        enum 16;
+                        enum 17;
+                        enum 18;
+                        enum 19;
+                        enum 20;
+                        enum 21;
+                        enum 22;
+                        enum 23;
+                        enum 24;
+                        enum 25;
+                        enum 26;
+                        enum 27;
+                        enum 28;
+                        enum 29;
+                        enum 30;
+                        enum 31;
+                    }
+                }
+                leaf AgentCircuitID {
+                    type base:Basetype_String {
+                        length "0..255";
+                    }
+                }
+                leaf AgentRemoteID {
+                    type base:Basetype_String {
+                        length "0..255";
+                    }
+                }
+                leaf NASPortID {
+                    type base:Basetype_String {
+                        length "0..255";
+                    }
+                }
+                leaf IPv6CPIfID {
+                    type base:Basetype_String;
+                }
+                leaf AuthenState {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                        enum 2;
+                    }
+                }
+                leaf AuthorState {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                        enum 2;
+                    }
+                }
+                leaf RealtimeAcctSwith {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                    }
+                }
+                leaf RealtimeAcctInterval {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf LoginTime {
+                    type base:Basetype_DateTime;
+                }
+                leaf AccountStartTime {
+                    type base:Basetype_DateTime;
+                }
+                leaf OnlineTime {
+                    type base:Basetype_String;
+                }
+                leaf AcctState {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                    }
+                }
+                leaf AcctStartFailAct {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                    }
+                }
+                leaf AcctUpdateFailAct {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                    }
+                }
+                leaf AcctQuotaOutAct {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                        enum 2;
+                    }
+                }
+                leaf DualStackAcctMode {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                    }
+                }
+                leaf IdleCutTime {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf IdleCutFlow {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf IdleCutDirection {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                        enum 2;
+                    }
+                }
+                leaf SessionTimeout {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf RemainTime {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf TrafficQuota {
+                    type base:Basetype_UnsignedInteger64;
+                }
+                leaf RemainTraffic {
+                    type base:Basetype_UnsignedInteger64;
+                }
+                leaf IPv6CPIfIDAssign {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                    }
+                }
+                leaf RedirectWebURL {
+                    type base:Basetype_String {
+                        length "1..255";
+                    }
+                }
+                leaf ITAPolicyName {
+                    type base:Basetype_String {
+                        length "1..31";
+                    }
+                }
+                leaf MRU {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf IPv4MTU {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf IPv6MTU {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf SubscriberID {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf UserSessionLimit {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf UserSessionCnt {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf AccountID {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf NSInboundSampler {
+                    type base:Basetype_String {
+                        length "1..31";
+                    }
+                }
+                leaf NSOutboundSampler {
+                    type base:Basetype_String {
+                        length "1..31";
+                    }
+                }
+                leaf UserProfileName {
+                    type base:Basetype_String {
+                        length "1..31";
+                    }
+                }
+                leaf UserProfileState {
+                    type base:Basetype_String {
+                        length "1..1024";
+                    }
+                }
+                leaf GroupUserProfileName {
+                    type base:Basetype_String {
+                        length "1..31";
+                    }
+                }
+                leaf GroupUserProfileState {
+                    type base:Basetype_String {
+                        length "1..1024";
+                    }
+                }
+                leaf UserGroupACLName {
+                    type base:Basetype_String {
+                        length "1..32";
+                    }
+                }
+                leaf UserGroupACLState {
+                    type base:Basetype_String {
+                        length "1..1024";
+                    }
+                }
+                leaf InboundCAR {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf InboundPIR {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf InboundCBS {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf InboundState {
+                    type base:Basetype_String {
+                        length "1..1024";
+                    }
+                }
+                leaf OutboundCAR {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf OutboundPIR {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf OutboundCBS {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf OutboundState {
+                    type base:Basetype_String {
+                        length "1..1024";
+                    }
+                }
+                leaf InboundPriLevel {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                        enum 2;
+                        enum 3;
+                        enum 4;
+                        enum 5;
+                        enum 6;
+                        enum 7;
+                        enum 15;
+                    }
+                }
+                leaf InboundPriState {
+                    type base:Basetype_String {
+                        length "1..1024";
+                    }
+                }
+                leaf OutboundPriLevel {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                        enum 2;
+                        enum 3;
+                        enum 4;
+                        enum 5;
+                        enum 6;
+                        enum 7;
+                        enum 15;
+                    }
+                }
+                leaf OutboundPriState {
+                    type base:Basetype_String {
+                        length "1..1024";
+                    }
+                }
+                leaf StartPort {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf EndPort {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf ExtendPortBlock {
+                    type base:Basetype_String;
+                }
+                leaf IPv4FlowStat {
+                    type base:Basetype_String {
+                        length "1..80";
+                    }
+                }
+                leaf IPv6FlowStat {
+                    type base:Basetype_String {
+                        length "1..80";
+                    }
+                }
+                leaf SessionID {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LacGroupID {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LacLocalTunnelID {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LacRemoteTunnelID {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LacLocalSessionID {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LacRemoteSessionID {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LacLocalIPAddr {
+                    type base:Basetype_Ipv4Address;
+                }
+                leaf LacRemoteIPAddr {
+                    type base:Basetype_Ipv4Address;
+                }
+                leaf LacLocalPort {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LacRemotePort {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LacVrfIndex {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LacCallingStation {
+                    type base:Basetype_String {
+                        length "1..64";
+                    }
+                }
+                leaf LnsGroupID {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LnsLocalTunnelID {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LnsRemoteTunnelID {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LnsLocalSessionID {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LnsRemoteSessionID {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LnsLocalIPAddr {
+                    type base:Basetype_Ipv4Address;
+                }
+                leaf LnsRemoteIPAddr {
+                    type base:Basetype_Ipv4Address;
+                }
+                leaf LnsLocalPort {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LnsRemotePort {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LnsVrfIndex {
+                    type base:Basetype_UnsignedShort;
+                }
+                leaf LnsCallingStation {
+                    type base:Basetype_String {
+                        length "1..64";
+                    }
+                }
+                leaf TotalSubUsers {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf BackUpStatus {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                        enum 2;
+                        enum 3;
+                    }
+                }
+                leaf BackUpInterface {
+                    type base:Basetype_String {
+                        length "1..47";
+                    }
+                }
+                leaf AccessUPID {
+                    type base:Basetype_UnsignedInteger32;
+                }
+                leaf InboundUserProfileName {
+                    type base:Basetype_String {
+                        length "1..31";
+                    }
+                }
+                leaf InboundUserProfileState {
+                    type base:Basetype_String {
+                        length "1..1024";
+                    }
+                }
+                leaf OutboundUserProfileName {
+                    type base:Basetype_String {
+                        length "1..31";
+                    }
+                }
+                leaf OutboundUserProfileState {
+                    type base:Basetype_String {
+                        length "1..1024";
+                    }
+                }
+                leaf IPv4McastProfileName {
+                    type base:Basetype_String {
+                        length "1..31";
+                    }
+                }
+                leaf IPv6McastProfileName {
+                    type base:Basetype_String {
+                        length "1..31";
+                    }
+                }
+                leaf IPv6CpeMode {
+                    type enumeration {
+                        enum 0;
+                        enum 1;
+                    }
+                }
+                container ITAInfos {
+                    list ITAInfo {
+                        key "ITALevel";
+                        leaf ITALevel {
+                            type base:Basetype_UnsignedInteger32 {
+                                range "1..8";
+                            }
+                        }
+                        leaf IPv4FlowStat {
+                            type base:Basetype_String {
+                                length "1..80";
+                            }
+                        }
+                        leaf IPv6FlowStat {
+                            type base:Basetype_String {
+                                length "1..80";
+                            }
+                        }
+                    }
+                }
+                container EDSGInfos {
+                    list EDSGInfo {
+                        key "ServiceID";
+                        leaf ServiceID {
+                            type base:Basetype_UnsignedInteger32 {
+                                range "1..8";
+                            }
+                        }
+                        leaf IPv4FlowStat {
+                            type base:Basetype_String {
+                                length "1..80";
+                            }
+                        }
+                        leaf IPv6FlowStat {
+                            type base:Basetype_String {
+                                length "1..80";
+                            }
+                        }
+                    }
+                }
+                container SubUserInfos {
+                    list SubUserInfo {
+                        key "SubUserID";
+                        leaf SubUserID {
+                            type base:Basetype_UnsignedInteger32;
+                        }
+                        leaf MacAddr {
+                            type base:Basetype_MacAddress;
+                        }
+                        leaf IpAddr {
+                            type base:Basetype_Ipv4Address;
+                        }
+                        leaf IPv6Addr {
+                            type base:Basetype_Ipv6Address;
+                        }
+                        leaf ServiceVLAN {
+                            type base:Basetype_UnsignedShort;
+                        }
+                        leaf CustomerVLAN {
+                            type base:Basetype_UnsignedShort;
+                        }
+                    }
+                }
+            }
+        }
+        container VASUserCount {
+            leaf UPid {
+                type base:Basetype_UnsignedInteger32 {
+                    range "1024..8192";
+                }
+            }
+            leaf VASUserType {
+                type enumeration {
+                    enum 0;
+                    enum 1;
+                    enum 2;
+                    enum 3;
+                }
+            }
+            leaf EDSGUserCount {
+                type base:Basetype_UnsignedInteger32;
+            }
+            leaf ITAUserCount {
+                type base:Basetype_UnsignedInteger32;
+            }
+            leaf NoVASUserCount {
+                type base:Basetype_UnsignedInteger32;
+            }
+            container EDSGUserInfos {
+                list EDSGUserInfo {
+                    key "EDSGUserID";
+                    leaf EDSGUserID {
+                        type base:Basetype_UnsignedInteger32;
+                    }
+                }
+            }
+            container ITAUserInfos {
+                list ITAUserInfo {
+                    key "ITAUserID";
+                    leaf ITAUserID {
+                        type base:Basetype_UnsignedInteger32;
+                    }
+                }
+            }
+            container NoVASUserInfos {
+                list NoVASUserInfo {
+                    key "NoVASUserID";
+                    leaf NoVASUserID {
+                        type base:Basetype_UnsignedInteger32;
+                    }
+                }
+            }
+        }
+    }
+}
+

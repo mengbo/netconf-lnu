@@ -1,0 +1,19 @@
+[device.bras01]
+host = bras01.domain.com
+username = netconf-username
+password = netconf-password
+port = 830
+device_params = {"name": "h3c"}
+timeout = 300
+
+[device.bras02]
+host = bras02.domain.com
+username = netconf-username
+password = netconf-password
+port = 830
+device_params = {"name": "huaweiyang"}
+timeout = 300
+
+[syslog]
+server = syslog.domain.com
+port = 514
