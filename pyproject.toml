@@ -1,6 +1,7 @@
 [project]
 name = "netconf-lnu"
-dynamic = ["version"]
+version = "2023.11.27"
+#dynamic = ["version"]
 description = "Python Scripts to get schema YANG files from network device"
 authors = [
     {name = "Meng Bo", email = "mengbo@lnu.edu.cn"},
