@@ -1,6 +1,6 @@
 [project]
 name = "netconf-lnu"
-version = "2023.11.27"
+version = "2023.12.01"
 #dynamic = ["version"]
 description = "Python Scripts to get schema YANG files from network device"
 authors = [
@@ -33,3 +33,5 @@ build-backend = "pdm.backend"
 [project.scripts]
 netconf-lnu = "netconf_lnu.main:main"
 
+[project.urls]
+Source = "https://github.com/mengbo/netconf-lnu"
