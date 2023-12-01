@@ -16,7 +16,8 @@ license = {text = "MIT"}
 
 
 [tool.pdm.scripts]
-netconf-lnu = "python3 src/netconf_lnu/main.py"
+#netconf-lnu = "python3 src/netconf_lnu/main.py"
+netconf-lnu = {call = "netconf_lnu.main:main"}
 
 [tool.pdm.version]
 source = "call"

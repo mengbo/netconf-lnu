@@ -1,4 +1,4 @@
-from braslogger import BRASLogger
+from .braslogger import BRASLogger
 import argparse
 import importlib.util
 
@@ -17,7 +17,7 @@ def main():
     test_function_name = args.test_function
     if test_function_name:
         try:
-            test_module = importlib.import_module('mytest')
+            test_module = importlib.import_module('.mytest', package=__package__)
             test_function = getattr(test_module, test_function_name)
             test_function(bras_logger)
         except (ImportError, AttributeError):

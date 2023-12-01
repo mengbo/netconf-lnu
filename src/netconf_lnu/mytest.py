@@ -1,4 +1,4 @@
-from braslogger import BRASLogger
+from .braslogger import BRASLogger
 import pprint
 import logging
 

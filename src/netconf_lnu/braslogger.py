@@ -1,4 +1,4 @@
-from netconf import Netconf
+from .netconf import Netconf
 import configparser
 import json
 import socket
