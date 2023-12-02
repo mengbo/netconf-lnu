@@ -62,7 +62,7 @@ pipx install netconf-lnu
 测试无误后，可以建立 cron 配置文件 `/etc/cron.d/netconf-lnu`，每20分钟运行程序一次，其内容如下：
 
 ```shell-session
-*/20 * * * * root netconf-lnu
+*/20 * * * * root /usr/local/bin/netconf-lnu
 ```
 
 
