@@ -69,23 +69,29 @@ class Netconf:
             file.write(self.get_schema(identifier, version))
 
     def get_addr_tab(self, user_mac_key, nd_mac_key, ipv4_key, ipv6_key):
-        user_info = self.get_user_info()
-        nd_table = self.get_nd_table()
-        addr_tab = []
-        for user in user_info:
+        user_info = {}
+        for user in self.get_user_info():
             if user_mac_key not in user or ipv4_key not in user:
                 continue
             if not user[ipv4_key].startswith('10.'):
                 continue
-            for nd in nd_table:
-                if not nd[ipv6_key].startswith('2001:'):
-                    continue
-                if nd[nd_mac_key] == user[user_mac_key]:
-                    addr_tab.append({
-                        'MAC': user[user_mac_key],
-                        'IPv4': user[ipv4_key],
-                        'IPv6': nd[ipv6_key]
-                    })
+            user_info[user[user_mac_key]] = user[ipv4_key]
+        nd_talbe = {}
+        for nd in self.get_nd_table():
+            if not nd[ipv6_key].startswith('2001:'):
+                continue
+            if nd[nd_mac_key] not in nd_talbe:
+                nd_talbe[nd[nd_mac_key]] = []
+            nd_talbe[nd[nd_mac_key]].append(nd[ipv6_key])
+        macs = set(user_info.keys()) & set(nd_talbe.keys())
+        addr_tab = []
+        for mac in macs:
+            for ipv6 in nd_talbe[mac]:
+                addr_tab.append({
+                    'MAC': mac,
+                    'IPv4': user_info[mac],
+                    'IPv6': ipv6
+                })
         return addr_tab
 
 
