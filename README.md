@@ -39,20 +39,31 @@ pdm run netconf-lnu -c config/config.ini
 
 本项目可以通过 `pdm build` 命令可以打包，方便修改后部署。
 
-项目已经在 PyPI 上发布，可以直接通过 pip 安装，以 Debian 类系统为例，可以通过如下命令安装：
+项目已经在 PyPI 上发布，可以直接通过 pipx 安装，以 Debian 类系统为例，可以以 root 用户执行如下命令安装 pipx：
 
 ```
 apt install pipx
-pipx ensurepath
+cat >> ~/.bashrc << EOF
+
+# For pipx
+export PIPX_HOME=/opt/pipx
+export PIPX_BIN_DIR=/usr/local/bin
+EOF
+```
+
+然后重新登陆系统并安装 netconf-lnu
+
+```
 pipx install netconf-lnu
 ```
 
-安装后可以直接运行 `netconf-lnu` 命令进行测试，测试无误后可以建立 cron 配置文件 `/etc/cron.d/netconf-lnu`，每20分钟运行程序一次，其内容如下：
+安装后需要建立配置文件 `/etc/netconf-lnu/config.ini` 并运行 `netconf-lnu` 命令测试。
+
+测试无误后，可以建立 cron 配置文件 `/etc/cron.d/netconf-lnu`，每20分钟运行程序一次，其内容如下：
 
 ```shell-session
-*/20 * * * * root /root/.local/bin/netconf-lnu -c /etc/netconf-lnu/config.ini
+*/20 * * * * root netconf-lnu
 ```
 
-其中 `/etc/netconf-lnu/config.ini` 为配置文件位置。
 
 

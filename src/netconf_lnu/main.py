@@ -5,7 +5,8 @@ import importlib.util
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--config', dest='config_file', default='config.ini',
+    parser.add_argument('-c', '--config', dest='config_file',
+                        default='/etc/netconf-lnu/config.ini',
                         help='Path to the configuration file.')
     parser.add_argument('-t', '--test', dest='test_function',
                         help='Run the test function.')
