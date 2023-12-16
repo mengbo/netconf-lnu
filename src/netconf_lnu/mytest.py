@@ -9,7 +9,7 @@ def print_addr_tab(bras_logger):
     for dev_name, dev_instance in bras_logger.devices.items():
         pp.pprint(dev_instance.get_user_info())
         pp.pprint(dev_instance.get_nd_table())
-        pp.pprint(dev_instance.get_addr_tab())
+        pp.pprint(dev_instance.get_addr_tab(auth=True))
 
 
 def download_schema(bras_logger):

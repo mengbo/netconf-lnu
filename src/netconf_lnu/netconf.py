@@ -68,7 +68,7 @@ class Netconf:
         with open(os.path.join(schema_dir, identifier + '.yang'), 'w') as file:
             file.write(self.get_schema(identifier, version))
 
-    def get_addr_tab(self, user_mac_key, nd_mac_key, ipv4_key, ipv6_key):
+    def get_addr_tab_noauth(self, user_mac_key, nd_mac_key, ipv4_key, ipv6_key):
         user_info = {}
         for user in self.get_user_info():
             if user_mac_key not in user or ipv4_key not in user:
@@ -92,6 +92,22 @@ class Netconf:
                     'IPv4': user_info[mac],
                     'IPv6': ipv6
                 })
+        return addr_tab
+
+    def get_addr_tab_auth(self, mac_key, ipv4_key, ipv6_key):
+        addr_tab = []
+        for user in self.get_user_info():
+            if mac_key not in user or ipv4_key not in user or ipv6_key not in user:
+                continue
+            if not user[ipv4_key].startswith('10.'):
+                continue
+            if not user[ipv6_key].startswith('2001:'):
+                continue
+            addr_tab.append({
+                'MAC': user[mac_key],
+                'IPv4': user[ipv4_key],
+                'IPv6': user[ipv6_key]
+            })
         return addr_tab
 
 
@@ -138,9 +154,13 @@ class H3CNetconf(Netconf):
         list = data['data']['ND']['NDTable']['NDEntry']
         return list
 
-    def get_addr_tab(self):
-        return super().get_addr_tab(
-            'MacAddr', 'MacAddress', 'IpAddr', 'Ipv6Address')
+    def get_addr_tab(self, auth=True):
+        if auth:
+            return super().get_addr_tab_auth(
+                'MacAddr', 'IpAddr', 'IPv6Addr')
+        else:
+            return super().get_addr_tab_noauth(
+                'MacAddr', 'MacAddress', 'IpAddr', 'Ipv6Address')
 
 
 class HuaweiNetconf(Netconf):
@@ -189,6 +209,10 @@ class HuaweiNetconf(Netconf):
             list = [list]
         return list
 
-    def get_addr_tab(self):
-        return super().get_addr_tab(
-            'access-mac-address', 'mac-addr', 'access-ipaddress', 'ipv6-addr')
+    def get_addr_tab(self, auth=True):
+        if auth:
+            return super().get_addr_tab_auth(
+                'access-mac-address', 'access-ipaddress', 'ipv6-addr')
+        else:
+            return super().get_addr_tab_noauth(
+                'access-mac-address', 'mac-addr', 'access-ipaddress', 'ipv6-addr')
