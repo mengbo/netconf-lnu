@@ -5,9 +5,9 @@ BRAS 设备 IPoE 认证用户 IPv6 地址溯源程序
 
 ## 一、工作原理
 
-本程序通过 NETCONF 协议获得 BRAS 设备 IPoE 认证用户 MAC、IPv4、IPv6 地址信息，并发送到 syslog 进行记录。可以通过 cron 每二十分钟定时执行本程序，记录用户地址信息，以供事后溯源。
+本程序通过 NETCONF 协议获得 BRAS 设备 IPoE 认证用户 MAC、IPv4、IPv6 地址信息，并发送到 syslog 进行记录。可以通过 cron 每十分钟定时执行本程序，记录用户地址信息，以供事后溯源。
 
-本程序在 H3C SR8808-X 以及华为 ME60 上进行了测试。H3C SR8808-X IPoE 认证功能存在问题，需要关闭 IPv6 认证，目前本程序是按照关闭 IPv6 认证的情况编写的。华为 ME60 的 V800R013C00SPC100 版本软件 NETCONF 接口存在问题，无法正常获得 IPv6 地址。
+本程序在 H3C SR8808-X 以及华为 ME60 上进行了测试。华为 ME60 的 V800R013C00SPC100 版本软件 NETCONF 接口存在问题，无法正常获得 IPv6 地址。
 
 ## 二、开发环境
 
@@ -62,7 +62,7 @@ pipx install netconf-lnu
 测试无误后，可以建立 cron 配置文件 `/etc/cron.d/netconf-lnu`，每20分钟运行程序一次，其内容如下：
 
 ```shell-session
-*/20 * * * * root /usr/local/bin/netconf-lnu
+*/10 * * * * root /usr/local/bin/netconf-lnu
 ```
 
 
