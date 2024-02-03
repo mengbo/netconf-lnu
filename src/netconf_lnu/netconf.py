@@ -1,3 +1,4 @@
+from .snmp import HuaweiSNMP
 from ncclient import manager
 import xml.dom.minidom
 import xmltodict
@@ -7,17 +8,19 @@ import os
 
 
 class Netconf:
-    def __init__(self, dev_info):
+    def __init__(self, dev_info, snmp_community=None):
+        self.snmp_community = snmp_community
+        self.snmp_host = dev_info.get('host', {})
         self.conn = manager.connect(**dev_info, hostkey_verify=False,
                                     allow_agent=False, look_for_keys=False)
 
     @staticmethod
-    def create_netconf_instance(dev_info):
+    def create_netconf_instance(dev_info, snmp_community):
         device_name = dev_info.get('device_params', {}).get('name', '').lower()
         if device_name == 'h3c':
             return H3CNetconf(dev_info)
         elif device_name == 'huaweiyang':
-            return HuaweiNetconf(dev_info)
+            return HuaweiNetconf(dev_info, snmp_community)
         else:
             raise ValueError(f"Unsupported device type: {device_name}")
 
@@ -211,8 +214,12 @@ class HuaweiNetconf(Netconf):
 
     def get_addr_tab(self, auth=True):
         if auth:
-            return super().get_addr_tab_auth(
-                'access-mac-address', 'access-ipaddress', 'ipv6-addr')
+            # SNMP
+            return HuaweiSNMP(self.snmp_community, self.snmp_host).get_addr_tab()
+
+            # Netconf
+            #return super().get_addr_tab_auth(
+            #    'access-mac-address', 'access-ipaddress', 'ipv6-addr')
         else:
             return super().get_addr_tab_noauth(
                 'access-mac-address', 'mac-addr', 'access-ipaddress', 'ipv6-addr')

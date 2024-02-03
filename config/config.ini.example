@@ -13,6 +13,7 @@ password = netconf-password
 port = 830
 device_params = {"name": "huaweiyang"}
 timeout = 300
+nmp_community = public
 
 [syslog]
 server = syslog.domain.com

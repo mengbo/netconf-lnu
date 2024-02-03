@@ -20,13 +20,17 @@ class BRASLogger:
             if section_name.startswith("device."):
                 device_name = section_name[len("device."):]
                 section_config = {}
+                snmp_community = "public"
                 for key, value in config.items(section_name):
+                    if key == "snmp_community":
+                        snmp_community = value
+                        continue
                     try:
                         section_config[key] = json.loads(value)
                     except json.JSONDecodeError:
                         section_config[key] = value
                 self.devices[device_name] = \
-                    Netconf.create_netconf_instance(section_config)
+                    Netconf.create_netconf_instance(section_config, snmp_community)
             elif section_name == "syslog":
                 for key, value in config.items(section_name):
                     self.syslog[key] = value
