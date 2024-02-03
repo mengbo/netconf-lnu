@@ -1,6 +1,6 @@
 [project]
 name = "netconf-lnu"
-version = "2024.02.03.01"
+version = "2024.02.03.02"
 #dynamic = ["version"]
 description = "Python Scripts to get schema YANG files from network device"
 authors = [
